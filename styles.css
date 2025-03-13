@@ -1,0 +1,550 @@
+:root {
+  --zombie-green: #4a5d23;
+  --zombie-dark-green: #2c3a14;
+  --zombie-brown: #5d4023;
+  --zombie-gray: #3a3a3a;
+  --blood-red: #8b0000;
+  --rot-yellow: #9a8f55;
+  --survivor-orange: #ff7518;
+  --toxic-green: #39ff14;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Courier New', monospace;
+}
+
+body {
+  min-height: 100vh;
+  background: url('https://images.unsplash.com/photo-1508614589041-895b88991e3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=1080') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+  overflow: hidden;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Blood Effects */
+.blood-splatter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://www.transparentpng.com/thumb/blood/splatter-blood-png-clipart-5.png') no-repeat;
+  background-size: cover;
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.blood-drip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  background: var(--blood-red);
+  box-shadow: 0 0 15px rgba(139, 0, 0, 0.8);
+  z-index: 10;
+}
+
+.blood-drip::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 10%;
+  width: 10px;
+  height: 80px;
+  background: var(--blood-red);
+  border-radius: 0 0 10px 10px;
+  animation: drip 8s infinite;
+}
+
+.blood-drip::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 70%;
+  width: 14px;
+  height: 100px;
+  background: var(--blood-red);
+  border-radius: 0 0 10px 10px;
+  animation: drip 10s infinite 2s;
+}
+
+@keyframes drip {
+  0% { height: 0; opacity: 1; }
+  50% { height: 100px; opacity: 0.8; }
+  70% { height: 110px; opacity: 0.6; }
+  90% { height: 130px; opacity: 0.2; }
+  100% { height: 150px; opacity: 0; }
+}
+
+/* Zombie Hands */
+.zombie-hand {
+  position: absolute;
+  width: 150px;
+  height: 250px;
+  background: url('https://www.pngarts.com/files/3/Zombie-Hand-PNG-Photo.png') no-repeat;
+  background-size: contain;
+  z-index: 5;
+}
+
+.zombie-hand.left {
+  left: -50px;
+  bottom: 20%;
+  transform: rotate(45deg);
+  animation: hand-left 5s infinite;
+}
+
+.zombie-hand.right {
+  right: -50px;
+  bottom: 30%;
+  transform: scaleX(-1) rotate(45deg);
+  animation: hand-right 6s infinite 1s;
+}
+
+@keyframes hand-left {
+  0%, 100% { transform: rotate(45deg) translateY(0); }
+  50% { transform: rotate(35deg) translateY(-20px); }
+}
+
+@keyframes hand-right {
+  0%, 100% { transform: scaleX(-1) rotate(45deg) translateY(0); }
+  50% { transform: scaleX(-1) rotate(55deg) translateY(-15px); }
+}
+
+/* Card */
+.card {
+  width: 400px;
+  height: 600px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card.flip {
+  transform: rotateY(180deg);
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 15px;
+  padding: 30px;
+  background: rgba(30, 30, 30, 0.9);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), inset 0 0 15px var(--zombie-green);
+  overflow: hidden;
+}
+
+.card-front::before, .card-back::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent, rgba(74, 93, 35, 0.2), transparent);
+  z-index: -1;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+/* Form Styling */
+.form-header {
+  text-align: center;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.form-header h2 {
+  color: var(--survivor-orange);
+  font-size: 28px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  margin-bottom: 10px;
+}
+
+/* Zombie Eyes Animation */
+.zombie-eyes {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.eye {
+  width: 25px;
+  height: 15px;
+  background: var(--toxic-green);
+  border-radius: 50%;
+  margin: 0 15px;
+  position: relative;
+  box-shadow: 0 0 10px var(--toxic-green);
+  animation: blink 4s infinite;
+}
+
+.eye::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background: black;
+  border-radius: 50%;
+  animation: look 7s infinite;
+}
+
+@keyframes blink {
+  0%, 45%, 55%, 100% { height: 15px; }
+  50% { height: 1px; }
+}
+
+@keyframes look {
+  0%, 100% { transform: translate(-50%, -50%); }
+  25% { transform: translate(-70%, -50%); }
+  75% { transform: translate(-30%, -50%); }
+}
+
+/* Zombie Brain Animation */
+.zombie-brain {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.brain-part {
+  width: 25px;
+  height: 25px;
+  background: var(--rot-yellow);
+  border-radius: 50% 50% 50% 0;
+  margin: 0 5px;
+  position: relative;
+  transform: rotate(-45deg);
+  animation: pulse 3s infinite alternate;
+}
+
+.brain-part:nth-child(2) {
+  border-radius: 50% 50% 0 50%;
+  transform: rotate(45deg);
+  animation-delay: 1s;
+}
+
+@keyframes pulse {
+  0% { transform: rotate(-45deg) scale(1); background: var(--rot-yellow); }
+  100% { transform: rotate(-45deg) scale(1.1); background: var(--blood-red); }
+}
+
+/* Form Inputs */
+.input-group {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.input-group i {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: var(--zombie-green);
+  font-size: 20px;
+  transition: all 0.3s;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 12px 12px 40px;
+  border: none;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s;
+}
+
+.input-group input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.input-group input:focus {
+  background: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 8px var(--toxic-green);
+}
+
+.input-group input:focus + .input-border {
+  width: 100%;
+}
+
+.input-group input:focus ~ i {
+  color: var(--toxic-green);
+}
+
+.input-border {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--toxic-green);
+  transition: width 0.4s;
+}
+
+/* Checkboxes */
+.remember-me, .terms {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.remember-me input, .terms input {
+  margin-right: 10px;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--zombie-green);
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.remember-me input:checked, .terms input:checked {
+  background: var(--zombie-green);
+}
+
+.remember-me input:checked::after, .terms input:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 12px;
+}
+
+.remember-me label, .terms label {
+  color: #ccc;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.terms a {
+  color: var(--survivor-orange);
+  margin-left: 5px;
+  text-decoration: none;
+}
+
+.terms a:hover {
+  text-decoration: underline;
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 5px;
+  background: var(--zombie-green);
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.submit-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.5s;
+}
+
+.submit-btn:hover {
+  background: var(--zombie-dark-green);
+  box-shadow: 0 0 10px var(--toxic-green);
+  transform: translateY(-2px);
+}
+
+.submit-btn:hover::before {
+  left: 100%;
+}
+
+.submit-btn span {
+  margin-right: 10px;
+}
+
+.submit-btn i {
+  font-size: 20px;
+}
+
+/* Social Login */
+.social-login, .social-signup {
+  margin-top: 25px;
+  text-align: center;
+}
+
+.social-login p, .social-signup p {
+  color: #ccc;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.social-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.social-btn i {
+  font-size: 18px;
+  color: #fff;
+}
+
+.social-btn.google {
+  background: rgba(219, 68, 55, 0.2);
+}
+
+.social-btn.facebook {
+  background: rgba(66, 103, 178, 0.2);
+}
+
+.social-btn.twitter {
+  background: rgba(29, 161, 242, 0.2);
+}
+
+.social-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.social-btn.google:hover {
+  background: rgba(219, 68, 55, 0.8);
+}
+
+.social-btn.facebook:hover {
+  background: rgba(66, 103, 178, 0.8);
+}
+
+.social-btn.twitter:hover {
+  background: rgba(29, 161, 242, 0.8);
+}
+
+/* Switch Between Forms */
+.switch-form {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.switch-form p {
+  color: #ccc;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.switch-btn {
+  background: none;
+  border: none;
+  color: var(--survivor-orange);
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.switch-btn:hover {
+  color: var(--toxic-green);
+  text-shadow: 0 0 5px var(--toxic-green);
+}
+
+/* Fog Overlay Animation */
+.fog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://media.istockphoto.com/id/1251409149/vector/fog-or-smoke-transparent-special-effect.jpg?s=612x612&w=0&k=20&c=vBQgAJm-49kGDSAuUQ_ujB44ZPuKzk3XXdg_3ufBVS0=') no-repeat;
+  background-size: cover;
+  opacity: 0.3;
+  pointer-events: none;
+  animation: fog-move 60s infinite linear;
+  z-index: -1;
+}
+
+@keyframes fog-move {
+  0% { background-position: 0 0; }
+  100% { background-position: 100% 100%; }
+}
+
+/* Media Queries */
+@media (max-width: 450px) {
+  .card {
+    width: 320px;
+    height: 580px;
+  }
+  
+  .form-header h2 {
+    font-size: 22px;
+  }
+  
+  .input-group input {
+    font-size: 14px;
+  }
+  
+  .submit-btn {
+    font-size: 16px;
+  }
+}
