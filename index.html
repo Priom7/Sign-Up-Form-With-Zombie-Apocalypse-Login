@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zombie Apocalypse Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="blood-splatter"></div>
+    <div class="blood-drip"></div>
+    
+    <div class="zombie-hand left"></div>
+    <div class="zombie-hand right"></div>
+    
+    <div class="card">
+      <div class="card-inner">
+        <!-- Front - Login Form -->
+        <div class="card-front">
+          <div class="form-header">
+            <h2>SURVIVOR LOGIN</h2>
+            <div class="zombie-eyes">
+              <div class="eye left"></div>
+              <div class="eye right"></div>
+            </div>
+          </div>
+          
+          <form id="login-form">
+            <div class="input-group">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="Survivor ID" required>
+              <div class="input-border"></div>
+            </div>
+            
+            <div class="input-group">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Access Code" required>
+              <div class="input-border"></div>
+            </div>
+            
+            <div class="remember-me">
+              <input type="checkbox" id="remember">
+              <label for="remember">Remember Safe House</label>
+            </div>
+            
+            <button type="submit" class="submit-btn">
+              <span>ENTER SAFE ZONE</span>
+              <i class="fas fa-biohazard"></i>
+            </button>
+          </form>
+          
+          <div class="social-login">
+            <p>Quick Access With:</p>
+            <div class="social-icons">
+              <button class="social-btn google">
+                <i class="fab fa-google"></i>
+              </button>
+              <button class="social-btn facebook">
+                <i class="fab fa-facebook-f"></i>
+              </button>
+              <button class="social-btn twitter">
+                <i class="fab fa-twitter"></i>
+              </button>
+            </div>
+          </div>
+          
+          <div class="switch-form">
+            <p>No survival record?</p>
+            <button id="to-signup" class="switch-btn">REGISTER NOW</button>
+          </div>
+        </div>
+        
+        <!-- Back - Signup Form -->
+        <div class="card-back">
+          <div class="form-header">
+            <h2>JOIN THE SURVIVORS</h2>
+            <div class="zombie-brain">
+              <div class="brain-part"></div>
+              <div class="brain-part"></div>
+            </div>
+          </div>
+          
+          <form id="signup-form">
+            <div class="input-group">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="Choose Survivor Name" required>
+              <div class="input-border"></div>
+            </div>
+            
+            <div class="input-group">
+              <i class="fas fa-envelope"></i>
+              <input type="email" placeholder="Emergency Contact (Email)" required>
+              <div class="input-border"></div>
+            </div>
+            
+            <div class="input-group">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Create Access Code" required>
+              <div class="input-border"></div>
+            </div>
+            
+            <div class="input-group">
+              <i class="fas fa-shield-alt"></i>
+              <input type="password" placeholder="Confirm Access Code" required>
+              <div class="input-border"></div>
+            </div>
+            
+            <div class="terms">
+              <input type="checkbox" id="terms">
+              <label for="terms">I accept the <a href="#">Survival Protocol</a></label>
+            </div>
+            
+            <button type="submit" class="submit-btn">
+              <span>JOIN RESISTANCE</span>
+              <i class="fas fa-skull"></i>
+            </button>
+          </form>
+          
+          <div class="social-signup">
+            <p>Quick Registration With:</p>
+            <div class="social-icons">
+              <button class="social-btn google">
+                <i class="fab fa-google"></i>
+              </button>
+              <button class="social-btn facebook">
+                <i class="fab fa-facebook-f"></i>
+              </button>
+              <button class="social-btn twitter">
+                <i class="fab fa-twitter"></i>
+              </button>
+            </div>
+          </div>
+          
+          <div class="switch-form">
+            <p>Already a survivor?</p>
+            <button id="to-login" class="switch-btn">LOGIN HERE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="fog-overlay"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
